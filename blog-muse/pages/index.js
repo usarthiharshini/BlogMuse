@@ -28,7 +28,7 @@ export default function Home({blogs}) {
   console.log(blogs)
 
  /*  useEffect(async()=>{
-    const data = await axios.get(`http://localhost:3000/api/blogs/getblogs`)
+    const data = await axios.get(`https://blog-muse-dc3ztce20-usarthiharshini-gmailcom.vercel.app/api/blogs/getblogs`)
     console.log(data);
   },[])
  */
@@ -76,7 +76,7 @@ export default function Home({blogs}) {
 }
 
 export async function getServerSideProps(){
-  const data = await axios.get(`http://localhost:3000/api/blogs/getblogs`)
+  const data = await axios.get(`https://blog-muse-dc3ztce20-usarthiharshini-gmailcom.vercel.app/api/blogs/getblogs`)
   
   return {
     props:{

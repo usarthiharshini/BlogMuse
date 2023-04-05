@@ -20,7 +20,7 @@ function LoginPage() {
     // Handle login logic here
 
     const data = await axios.post(
-        `http://localhost:3000/api/user/loginUser`,
+        `https://blog-muse-dc3ztce20-usarthiharshini-gmailcom.vercel.app/api/user/loginUser`,
         {
         
           email: email,

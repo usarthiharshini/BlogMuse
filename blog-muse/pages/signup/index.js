@@ -16,7 +16,7 @@ function SignupPage() {
       e.preventDefault();
 
       const data = await axios.post(
-        `http://localhost:3000/api/user/createUser`,
+        `https://blog-muse-dc3ztce20-usarthiharshini-gmailcom.vercel.app/api/user/createUser`,
         {
           name: name,
           email: email,
