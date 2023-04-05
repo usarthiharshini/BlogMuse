@@ -2,7 +2,7 @@ import conn from "@/database/connection/connectDB";
 
 const jwt = require("jsonwebtoken");
 const User = require("../../../database/models/userModel");
-
+//https://blog-muse.vercel.app/
 export default async function handler(req, res) {
   conn();
   res.setHeader('Access-Control-Allow-Origin', '*');

@@ -16,7 +16,8 @@ function SignupPage() {
       e.preventDefault();
 
       const data = await axios.post(
-        `https://blog-muse-dc3ztce20-usarthiharshini-gmailcom.vercel.app/api/user/createUser`,
+        `https://blog-muse.vercel.app/
+api/user/createUser`,
         {
           name: name,
           email: email,
