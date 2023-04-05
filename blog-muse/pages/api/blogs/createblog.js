@@ -4,7 +4,7 @@ const BlogPost = require("../../../database/models/blogModel");
 
 export default async function handler(req, res) {
   conn();
-  const { title, content, author } = req.body;
+  const { title, content, author,image } = req.body;
 
   const authorDetails = await User.findOne({
     _id: author,
@@ -19,6 +19,7 @@ export default async function handler(req, res) {
     title: title,
     content: content,
     author: author,
+    image: image
   });
   const savedBlogPost = await newBlogPost.save();
   res.json(savedBlogPost);

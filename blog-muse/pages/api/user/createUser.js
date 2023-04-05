@@ -1,7 +1,7 @@
 import conn from "@/database/connection/connectDB";
 const User = require("../../../database/models/userModel");
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   conn();
 
   if (req.body.role === "admin") {
@@ -11,6 +11,16 @@ export default function handler(req, res) {
         message: "Cannot create new admin. If you are admin, Please Login",
       });
   }
+
+  const userexists = await User.findOne({ email: req.body.email });
+
+if(userexists){
+  return res
+  .status(401)
+  .json({
+    message: "User exists, Please Login",
+  });
+}
 
   const newUser = {
     name: req.body.name,
