@@ -89,8 +89,10 @@ function HtmlEditor() {
           <div className="db-form">
             <div>
               Content:
-              <div style={{ width: 600, height: 250 }}>
-                <div aria-required ref={quillRef} />
+             
+              
+              <div  className="quillby"  style={{ width: 500, height: 300 }}>
+                <div  ref={quillRef} />
               </div>{" "}
             </div>
             <form onSubmit={handleSubmit} className="signup-page db-title">

@@ -92,7 +92,10 @@ function HtmlEditor({ postData }) {
   }
 
   return (
-    <div className="db">
+    <div>
+      
+   <Navbar/>
+    <div className="db main">
       <h2>Editing Post</h2>
       <div className="underline"></div>
       <div className="db-form">
@@ -125,7 +128,7 @@ function HtmlEditor({ postData }) {
         </form>
       </div>{" "}
     </div>
-  );
+    </div> );
 }
 
 export default HtmlEditor;

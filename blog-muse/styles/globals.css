@@ -132,6 +132,29 @@ p {
   }
 } 
 
+@media screen and (max-width: 992px) {
+  .db-form{
+    flex-direction: column;
+  }
+  .navbar{
+    flex-direction: column!important;
+   
+   
+  }
+  .nav-list{
+    flex-direction: column;
+    
+   
+  }
+ .quillby{
+  width: 200px;
+  height: 500px;
+ }
+
+  
+} 
+
+
 .title {
   text-align: center;
   margin-bottom: 4rem;
@@ -240,6 +263,7 @@ p {
   box-shadow: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius);
   margin-bottom: 2rem;
+  margin-top: 1.3rem!important;
 }
 
 h2 {
@@ -285,6 +309,7 @@ button[type='submit']:hover {
 } 
 .db-form{
   display: flex;
+  
   margin: auto;
   gap: 5rem;
   width: fit-content;
@@ -337,6 +362,7 @@ button[type='submit']:hover {
   align-items: center;
  justify-content: space-around;
   gap: 3rem;
+ 
   background-color: var(--clr-grey-8);
 
 }
