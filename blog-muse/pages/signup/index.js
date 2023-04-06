@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useToast, Spinner, Box } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Navbar from "@/components/navbar";
 function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,8 +17,7 @@ function SignupPage() {
       e.preventDefault();
 
       const data = await axios.post(
-        `https://blog-muse.vercel.app/
-api/user/createUser`,
+        `https://blog-muse.vercel.app/api/user/createUser`,
         {
           name: name,
           email: email,
@@ -61,8 +61,10 @@ api/user/createUser`,
             */
   };
 
-  return (
-    <div className="signup-page">
+  return (<div>
+    <Navbar/>
+  
+    <div className="signup-page main">
       <h2>Create an account</h2>
       <div className="underline"></div>
       <form onSubmit={handleSubmit}>
@@ -106,7 +108,7 @@ api/user/createUser`,
         <button type="submit">Sign up</button>
       </form>
     </div>
-  );
+    </div> );
 }
 
 export default SignupPage;

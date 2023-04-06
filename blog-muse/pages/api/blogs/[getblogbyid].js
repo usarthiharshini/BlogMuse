@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         break;
       }
       case "PATCH": {
-        const { content, author } = req.body;
+        const { content, author,title,image } = req.body;
         const authorDetails = await User.findOne({
           _id: author,
         });
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
         const blog = await BlogPost.findByIdAndUpdate(
           getblogbyid,
-          { content: content },
+          { content: content,title: title,image: image },
           { new: true }
         );
         res.json(blog);

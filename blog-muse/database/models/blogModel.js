@@ -25,6 +25,10 @@ const blogPostSchema = new mongoose.Schema({
         ref: 'User',
         required: true
       },
+      author_name:{
+        type: String,
+        required: true
+      },
       content: {
         type: String,
         required: true

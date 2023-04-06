@@ -6,7 +6,7 @@ const Blog = ({image,title,content,id}) => {
         <Link href={`/${id}`}>  <article className='blog'>
             <img src={image} />
             <footer>
-                <h4>{title}</h4>
+                <h5>{title}</h5>
                 <p>{content}</p>
             </footer>
         </article></Link>

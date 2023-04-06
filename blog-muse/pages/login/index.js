@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Link from 'next/link';
-
+import authContext from "@/context/authContext";
+import Cookies from 'js-cookie';
 import axios from "axios";
+import Navbar from '@/components/navbar';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,6 +14,7 @@ function LoginPage() {
   const toast = useToast();
   const toastIdRef = React.useRef();
   const router = useRouter();
+ const {name,id,role,updateName,updateId,updateRole} = useContext(authContext)
   const handleSubmit = async (event) => {
     try {
         
@@ -20,8 +23,7 @@ function LoginPage() {
     // Handle login logic here
 
     const data = await axios.post(
-        `https://blog-muse.vercel.app/
-api/user/loginUser`,
+        `https://blog-muse.vercel.app/api/user/loginUser`,
         {
         
           email: email,
@@ -29,11 +31,18 @@ api/user/loginUser`,
          
         }
       );
-      // console.log(`Name: ${name}, Email: ${email}, Password: ${password}, Role: ${role}`);
-      console.log(data.data);
+     
 
-      if (data) {
-        toastIdRef.current = toast({
+      if (data.data) {
+        Cookies.set('token',data.data.token, { expires: 7 });
+        Cookies.set('name',data.data.name, { expires: 7 });
+        Cookies.set('author',data.data.id, { expires: 7 });
+        Cookies.set('role',data.data.role, { expires: 7 });
+          updateName(data.data.name)
+         updateId(data.data.id)
+          updateRole(data.data.role)
+          console.log(name,id,role+"details")
+           toastIdRef.current = toast({
           title: "Login succesful.",
           description: "redirecting to dashboard",
           status: "success",
@@ -42,7 +51,7 @@ api/user/loginUser`,
           isClosable: true,
         });
        setTimeout(()=>{
-router.push("/dashboard");
+router.push("/");
        },2000)
             
         
@@ -61,8 +70,10 @@ router.push("/dashboard");
 }
   }
 
-  return (
-    <div className='login-page'>
+  return (<>
+    <Navbar/>
+    <div className='signup-page main'>
+      
       <h2>Login</h2>
       <div className="underline"></div>
       <form onSubmit={handleSubmit}>
@@ -75,7 +86,7 @@ router.push("/dashboard");
         <button type="submit">Login</button>
       </form>
     </div>
-  );
+    </>);
 }
 
 export default LoginPage;

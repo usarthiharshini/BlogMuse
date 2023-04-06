@@ -1,38 +1,67 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import axios from 'axios';
-import Slider from 'react-slick';
-
+import axios from "axios";
+import Slider from "react-slick";
+import authContext from "@/context/authContext";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Blog from '@/components/blog';
-import { useState } from 'react';
-import { Button,ButtonGroup } from '@chakra-ui/react'
-import Link from 'next/link';
+import Blog from "@/components/blog";
+import { useState,useContext, useEffect } from "react";
+import Link from "next/link";
+import Cookies from 'js-cookie';
+import Navbar from "@/components/navbar";
 
-
-export default function Home({blogs}) {
-
+export default function Home({ blogs }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [namee,setNamee] = useState('');
+  const [yourblog,setYourblog] = useState([])
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 3,
+    slidesToScroll: 1,
     arrows: true,
     afterChange: (index) => setCurrentSlide(index),
   };
 
-  console.log(blogs)
+ 
+  const token = Cookies.get("token");
+  const author = Cookies.get("author");
+  const role = Cookies.get("role");
+ 
 
- /*  useEffect(async()=>{
-    const data = await axios.get(`https://blog-muse.vercel.app/
-api/blogs/getblogs`)
-    console.log(data);
+  
+
+console.log(author)
+  const logout=()=>{
+   Cookies.remove('name');
+   Cookies.remove('author');
+   Cookies.remove('token');
+   Cookies.remove('id');
+   const namen = Cookies.get("name");
+    setNamee(namen)
+  }
+
+  console.log(blogs);
+  const updateNamee=(name)=>{
+   setNamee(name);
+  }
+  useEffect(()=>{
+    const namen = Cookies.get("name");
+    setNamee(namen)
   },[])
- */
+
+  useEffect(()=>{
+   const you = blogs.filter((blog)=>{
+    console.log(blog.author,"auth")
+   return blog.author===author
+  })
+ setYourblog(you)
+   console.log(you,"written by you")
+  },[])
+
   return (
     <>
       <Head>
@@ -41,48 +70,77 @@ api/blogs/getblogs`)
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main >
-      <section className='home-page'>
-      <h3>Blog Muse</h3>
-      <div className="underline"></div>
-      {/* <div className="title">
-      
-        
-        <div className="underline"></div>
-       
-      </div> */}
-      
-      <Slider {...settings} className='slider'>
-        {blogs.map((blog)=>{
-          return <Blog 
-          image={blog.image}
-          title={blog.title}
-          content={blog.content}
-          id={blog._id}
-          />
-        })}
-        </Slider>
-       {/*  <p>Current slide: {currentSlide + 1}</p> */}
+      <main>
+       <Navbar sendNamee={updateNamee}/>
+        <section className="home-page">
+        {namee && <><h4 className="intro" >Hey,{namee}</h4></>}
+     <h3>Trending Blogs</h3>
+ <div className="underline"></div>
 
-     
-      <div className="buttons">
-        <Link href='/login'>
-        <button className="login">Log In</button></Link>
-        <Link href='/signup'> <button className="signup">Sign Up</button></Link>
-      </div>
-    </section>
+          <Slider {...settings} className="slider">
+            {blogs.map((blog) => {
+              return (
+                <Blog
+                  image={blog.image}
+                  title={blog.title}
+                  content={blog.content}
+                  id={blog._id}
+                  key={blog._id}
+                />
+
+
+             
+
+              );
+            })}
+          </Slider>
+
+
+
+
+
+{/*           <p>Current slide: {currentSlide + 1}</p>
+ */}
+ {namee && yourblog.length>0 &&  <> <h3>Written by you</h3>
+ <div className="underline"></div>
+
+          <Slider {...settings} className="slider">
+            {yourblog.map((blog) => {
+              return (
+                <Blog
+                  image={blog.image}
+                  title={blog.title}
+                  content={blog.content}
+                  id={blog._id}
+                  key={blog._id}
+                />
+              );
+            })}
+          </Slider></>}
+{/*  {namee && <div className="buttons"><button className="signup" onClick={logout}> Logout</button></div>}
+  {!namee &&  <div className="buttons">
+            <Link href="/login">
+              <button className="login">Log In</button>
+            </Link>
+            <Link href="/signup">
+              
+              <button className="signup">Sign Up</button>
+            </Link>
+          </div> } */}
+
+        </section>
+      
       </main>
     </>
-  )
+  );
 }
 
-export async function getServerSideProps(){
-  const data = await axios.get(`https://blog-muse.vercel.app/
-api/blogs/getblogs`)
-  
+export async function getServerSideProps() {
+  const data = await axios.get(`https://blog-muse.vercel.app/api/blogs/getblogs`);
+
   return {
-    props:{
-      blogs: data.data
-    }
-  }
-} 
+    props: {
+      blogs: data.data,
+    },
+  };
+}
