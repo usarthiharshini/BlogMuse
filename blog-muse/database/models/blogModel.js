@@ -1,42 +1,43 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const blogPostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   content: {
     type: String,
-    required: true
+    required: true,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  } , 
+    ref: "User",
+    required: true,
+  },
   image: {
     type: String,
-    required: true
+    required: true,
   },
   comments: [
     {
       author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: "User",
+        required: true,
       },
-      author_name:{
+      author_name: {
         type: String,
-        required: true
+        required: true,
       },
       content: {
         type: String,
-        required: true
-      }
-    }
-  ] 
+        required: true,
+      },
+    },
+  ],
 });
 
-const BlogPost = mongoose.models.BlogPost || mongoose.model('BlogPost', blogPostSchema);
+const BlogPost =
+  mongoose.models.BlogPost || mongoose.model("BlogPost", blogPostSchema);
 
 module.exports = BlogPost;
